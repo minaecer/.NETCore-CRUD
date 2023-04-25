@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="CRUD" />
+    <meta name="author" content="CRUD" />
+    <title> @ViewBag.Baslik CRUD </title>
+   
+    <link href="~/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/sidebar-menu.css" rel="stylesheet" />
+    <link href="~/assets/css/app-style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#sifre').keyup(function (e) {
+                //Karakter Sayısı Tanımlamaları
+                var guclukarakter = 8; //Güçlü saymak için gerekli sayı
+                var ortakarakter = 7; //Orta güçlü saymak için gerekli sayı
+                var gecerkarakter = 6; //En az gereki sayı
+                //Regex ile kontrol fonksiyonları
+                var strongRegex = new RegExp("^(?=.{" + guclukarakter + ",})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+                var mediumRegex = new RegExp("^(?=.{" + ortakarakter + ",})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+                var enoughRegex = new RegExp("(?=.{" + gecerkarakter + ",}).*", "g");
+                //Test başlasın... :)
+                if (false == enoughRegex.test($(this).val())) {
+                    $('#guclu_mu').removeClass();
+                    $('#guclu_mu').addClass('azkarakter');
+                    $('#guclu_mu').html('En az ' + gecerkarakter + ' karakter!');
+                } else if (strongRegex.test($(this).val())) {
+                    $('#guclu_mu').removeClass();
+                    $('#guclu_mu').addClass('guclu');
+                    $('#guclu_mu').html('Güçlü!');
+                }  else {
+                    $('#guclu_mu').removeClass();
+                    $('#guclu_mu').addClass('gucsuz');
+                    $('#guclu_mu').html('Güçsüz!');
+                }
+                return true;
+            });
+        });
+    </script>
+    <style>
+        .gucsuz, .guclu, .azkarakter {
+            display: inline-block;
+            border: 1px solid #000;
+            min-width: 120px;
+            min-height: 20px;
+            line-height: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            padding-left: 5px;
+        }
+
+        .gucsuz {
+            color: #FFF;
+            background: #FF0000;
+        }
+
+        .guclu {
+            color: #FFF;
+            background: green;
+        }
+
+       
+
+        .azkarakter {
+            color: #FFF;
+            background: #000;
+        }
+    </style>
+
+</head>
+<body class="bg-theme bg-theme1">
+    <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner"><div class="loader"></div></div></div></div>
+    <div id="wrapper">
+       
+       
+        <div class="clearfix"></div>
+        <div class="content-wrapper">
+            <div class="container-fluid">
+
+                @RenderBody()
+
+                <div class="overlay toggle-menu"></div>
+
+            </div>
+            <a href="/Kisiler/Yeni/"><i class="fa fa-plus"></i> Yeni Kişi Ekle</a>
+
+            <a href="/Kisiler/Listele/"><i class="fa fa-list"></i> Kişi Listele</a>
+        </div><!--End content-wrapper-->
+     
+       
+        <footer class="footer">
+     
+        </footer>
+    </div><!--End wrapper-->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/simplebar/js/simplebar.js"></script>
+    <script src="~/assets/js/sidebar-menu.js"></script>
+    <script src="~/assets/js/app-script.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/jszip.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/pdfmake.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/vfs_fonts.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/buttons.html5.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/buttons.print.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js"></script>
+    <script src="~/assets/js/Table.js"></script>
+    @RenderSection("scripts", required: false)
+    <script>
+        initSample();
+    </script>
+</body>
+</html>
