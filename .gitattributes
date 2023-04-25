@@ -1,2 +1,1 @@
-*.C# linguist-detectable=true
-*.* linguist-detectable=false
+static/* linguist-vendored
